@@ -1,43 +1,63 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Backend API - Mongoose, Middlewares y Railway Deploy
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto es un backend desarrollado con NestJS, Mongoose y middlewares personalizados, preparado para despliegue profesional en Railway.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Características principales
+- API RESTful para gestión de clientes y mascotas.
+- Conexión a MongoDB Atlas mediante variables de entorno.
+- Middlewares personalizados (logger, cookies, etc).
+- Documentación interactiva con Swagger (`/api`).
+- Listo para despliegue en Railway con Docker.
+- Estructura profesional de ramas: `main` (producción) y `dev` (desarrollo).
 
-## Description
+## Instalación y uso local
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/Programador-N/prueba-deploy-one.git
+   cd prueba-deploy-one/practicaIntegradora/02-mongoose-env-middlewares
+   ```
+2. Instala dependencias:
+   ```bash
+   npm install
+   ```
+3. Configura las variables de entorno en `.env`:
+   ```env
+   MONGO_URL=tu_url_de_mongodb
+   PORT=8080
+   ```
+4. Compila y ejecuta en modo producción:
+   ```bash
+   npm run build
+   npm run start:prod
+   ```
+5. Accede a la documentación Swagger en:
+   - [http://localhost:8080/api](http://localhost:8080/api)
 
-## Project setup
+## Despliegue en Railway
 
-```bash
-$ npm install
-```
+1. Sube tu código a GitHub.
+2. En Railway, crea un nuevo proyecto y conecta tu repositorio.
+3. Configura las variables de entorno (`MONGO_URL`, `PORT`).
+4. Railway detectará el Dockerfile y hará el deploy automáticamente.
+5. Accede al dominio generado por Railway para consumir la API.
 
-## Compile and run the project
+## Estructura de ramas recomendada
+- `main`: Rama de producción.
+- `dev`: Rama de desarrollo y pruebas.
 
-```bash
-# development
-$ npm run start
+## Endpoints principales
+- `/api/clientes`: Gestión de clientes.
+- `/api/pets`: Gestión de mascotas.
 
-# watch mode
+## Contribuciones
+1. Haz un fork del repositorio.
+2. Crea una rama desde `dev`.
+3. Haz tus cambios y abre un Pull Request hacia `dev`.
+
+---
+
+**¡Listo para escalar y desplegar en la nube!**
 $ npm run start:dev
 
 # production mode
