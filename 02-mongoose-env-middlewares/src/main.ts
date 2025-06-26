@@ -30,6 +30,9 @@ async function bootstrap() {
   const PORT = process.env.PORT || 3009;
   const app = await NestFactory.create(AppModule, { cors: true });
   app.use(cookieParser());
+  // Servir archivos estáticos desde ./src/public
+  const express = (await import('express')).default;
+  app.use(express.static("./src/public"));
 
   // Configuración de Swagger para producción y desarrollo
   const config = new DocumentBuilder()
