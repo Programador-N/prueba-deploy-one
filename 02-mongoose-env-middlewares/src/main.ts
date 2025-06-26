@@ -27,7 +27,7 @@ const conn=async()=>{
 // conn()
 
 async function bootstrap() {
-  const PORT = process.env.PORT || 3009;
+  const PORT = process.env.PORT || 8080;
   const app = await NestFactory.create(AppModule, { cors: true });
   app.use(cookieParser());
   // Servir archivos estáticos desde ./src/public
