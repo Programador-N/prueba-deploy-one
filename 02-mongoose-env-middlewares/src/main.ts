@@ -1,10 +1,13 @@
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { WinstonModule } from 'nest-winston';
+import { createWinstonLogger } from './logger/winston.config';
+import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 const conn=async()=>{
   await mongoose.connect(process.env.MONGO_URL!)
@@ -28,8 +31,14 @@ const conn=async()=>{
 
 async function bootstrap() {
   const PORT = process.env.PORT || 3009;
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    logger: WinstonModule.createLogger(createWinstonLogger()),
+  });
   app.use(cookieParser());
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   // Configuración de Swagger para producción y desarrollo
   const config = new DocumentBuilder()
@@ -42,6 +51,5 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(PORT);
-  Logger.log(`Server online on port ${PORT}`, `Main App`);
 }
 bootstrap();

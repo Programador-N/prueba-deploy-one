@@ -1,11 +1,10 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientesModule } from './clientes/clientes.module';
 import { PetsModule } from './pets/pets.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 
 @Module({
   imports: [
@@ -17,13 +16,4 @@ import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule {
-  constructor(){
-    console.log(process.env.MONGO_URL)
-  }
-
-  configure(consumer: MiddlewareConsumer) {
-    // throw new Error('Method not implemented.');
-    consumer.apply(LoggerMiddleware).forRoutes({path:"*", method: RequestMethod.ALL})
-  }
-}
+export class AppModule {}

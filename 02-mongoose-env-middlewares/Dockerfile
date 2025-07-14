@@ -1,23 +1,23 @@
-# Dockerfile para NestJS + Railway
-FROM node:20-alpine
+# Stage 1: Build the application
+FROM node:20-alpine AS builder
 
-# Crear directorio de trabajo
 WORKDIR /app
 
-# Copiar package.json y package-lock.json
 COPY package*.json ./
+RUN npm install --omit=dev
 
-# Instalar dependencias
-RUN npm install --production
-
-# Copiar el resto del código fuente
 COPY . .
-
-# Compilar TypeScript
 RUN npm run build
 
-# Exponer el puerto (usa variable de entorno o 3009 por defecto)
+# Stage 2: Run the application
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules/ ./node_modules/
+COPY --from=builder /app/dist/ ./dist/
+
 EXPOSE ${PORT:-3009}
 
-# Comando de inicio
-CMD ["npm", "run", "start:prod"]
+CMD ["node", "dist/main"]
